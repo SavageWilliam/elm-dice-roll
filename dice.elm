@@ -5,8 +5,6 @@ import Html.Attributes exposing (..)
 import Random
 import String exposing (concat)
 
-
-
 main =
   Html.program
     { init = init
@@ -29,6 +27,7 @@ init =
   (Model 1 1, Cmd.none)
 
 --UPDATE
+
 type Msg = Roll | NewFace1 Int | NewFace2 Int
 
 type alias Time =
@@ -47,11 +46,10 @@ update msg model =
       ({ model | dieFace2 = newFace }, Cmd.none)
 
 
+--UTILITIES
 ran msg =
   Random.generate msg (Random.int 1 6)
 
-
---UTILITIES
 dieImage : Int -> String
 dieImage dieFace =
   concat ["./image-dieface/", (toString dieFace), ".svg"]
@@ -64,7 +62,7 @@ view model =
     , img [src (dieImage model.dieFace2), style [("display" , "inline-block" )]] []
     , button [ onClick Roll, style buttonStyle ] [ text "Roll"]
     ]
-    
+
 buttonStyle : List (String, String)
 buttonStyle =
   [("background-color", "#e4685d")
@@ -80,7 +78,6 @@ buttonStyle =
   ,("text-decoration","none")
   ,("text-shadow","0px 1px 0px #b23e35")
   ]
-
 
 --subscriptions
 subscriptions : Model -> Sub Msg
